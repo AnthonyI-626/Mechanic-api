@@ -2,18 +2,14 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped, relationship
 from sqlalchemy import ForeignKey
 from datetime import date
-from flask import current_app as app
-from app.extensions import ma
+from app.extensions import ma, db, Base
 
 
 
-class Base(DeclarativeBase):
-    pass
-
-db = SQLAlchemy(model_class=Base)
 
 
-db.init_app(app)
+
+
 
 
 class Customer(Base):
