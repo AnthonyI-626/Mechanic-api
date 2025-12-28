@@ -5,15 +5,8 @@ from datetime import date
 from app.extensions import ma, db, Base
 
 
-
-
-
-
-
-
-
 class Mechanic(Base):
-    __tablename__ = 'mechanics'
+    __tablename__ = 'customers'
     
     id: Mapped[int] = mapped_column(primary_key = True)
     name: Mapped[str] = mapped_column(db.String(250), nullable = False)
@@ -21,25 +14,20 @@ class Mechanic(Base):
     phone: Mapped[str] = mapped_column(db.String(10), nullable = False, unique = True)
     DOB: Mapped[date] 
     password: Mapped[str] = mapped_column(db.String(250), nullable = False)
+
     
-    cars: Mapped[list['Car']] = relationship(back_populates='mechanic')
     
-class Car(Base):
-    __tablename__ = 'cars'
+class ServiceTicket(Base):
+    __tablename__ = 'service_tickets'
     
     id: Mapped[int] = mapped_column(primary_key = True)
-    make: Mapped[str] = mapped_column(db.String(250), nullable = False)
-    model: Mapped[str] = mapped_column(db.String(250), nullable = False)
-    year: Mapped[int] = mapped_column(db.Integer, nullable = False)
-    vin: Mapped[str] = mapped_column(db.String(17), nullable = False, unique = True)
+    description: Mapped[str] = mapped_column(db.String(500), nullable = False)
+    date_created: Mapped[date] = mapped_column(db.Date)
+    status: Mapped[str] = mapped_column(db.String(50), nullable = False) 
     
-    customer_id: Mapped[int] = mapped_column(ForeignKey('mechanics.id'))
-    mechanic: Mapped['Mechanic'] = relationship(back_populates="cars")
+    mechanic_id: Mapped[int] = mapped_column(ForeignKey('mechanics.id'))
+    mechanic: Mapped['Mechanic'] = relationship(back_populates='service_tickets')
     
-    
+      
 
-class MechanicSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Mechanic
-        
-mechanic_schema = MechanicSchema()
+
