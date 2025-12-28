@@ -14,6 +14,8 @@ class Mechanic(Base):
     phone: Mapped[str] = mapped_column(db.String(10), nullable = False, unique = True)
     DOB: Mapped[date] 
     password: Mapped[str] = mapped_column(db.String(250), nullable = False)
+    
+    service_tickets = relationship('ServiceTicket', back_populates='mechanic')
 
     
     
@@ -25,7 +27,7 @@ class ServiceTicket(Base):
     date_created: Mapped[date] = mapped_column(db.Date)
     status: Mapped[str] = mapped_column(db.String(50), nullable = False) 
     
-    mechanic_id: Mapped[int] = mapped_column(ForeignKey('mechanics.id'))
+    mechanic_id: Mapped[int] = mapped_column(ForeignKey('customers.id'))
     mechanic: Mapped['Mechanic'] = relationship(back_populates='service_tickets')
     
       
