@@ -21,30 +21,28 @@ def create_service_ticket():
 
 @service_tickets_bp.route('/<int:ticket_id>/assign-mechanic/<int:mechanic_id>', methods=['PUT'])
 def assign_mechanic(ticket_id, mechanic_id):
-    ticket = ServiceTicket.query.get(ticket_id)
+    ticket = db.session.get(ServiceTicket, ticket_id)
     if not ticket:
         return jsonify({'error': 'Service ticket not found.'}), 404
-    mechanic = Mechanic.query.get(mechanic_id)
+    mechanic = db.session.get(Mechanic, mechanic_id)
     if not mechanic:
         return jsonify({'error': 'Mechanic not found.'}), 404
     
-    if mechanic not in ticket.mechanics:
-        ticket.mechanics.append(mechanic)
-        db.session.commit()
+    ticket.mechanic = mechanic
+    db.session.commit()
     return service_ticket_schema.jsonify(ticket), 200
 
 @service_tickets_bp.route('/<int:ticket_id>/remove-mechanic/<int:mechanic_id>', methods=['PUT'])
 def remove_mechanic(ticket_id, mechanic_id):
-    ticket = ServiceTicket.query.get(ticket_id)
+    ticket = db.session.get(ServiceTicket, ticket_id)
     if not ticket:
         return jsonify({'error': 'Service ticket not found.'}), 404
-    mechanic = Mechanic.query.get(mechanic_id)
+    mechanic = db.session.get(Mechanic, mechanic_id)
     if not mechanic:
         return jsonify({'error': 'Mechanic not found.'}), 404
     
-    if mechanic in ticket.mechanics:
-        ticket.mechanics.remove(mechanic)
-        db.session.commit()
+    ticket.mechanic = None
+    db.session.commit()
         
     return service_ticket_schema.jsonify(ticket), 200
 
