@@ -42,4 +42,4 @@ class MechanicSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Mechanic
         
-customer_schema = MechanicSchema()
+mechanic_schema = MechanicSchema()

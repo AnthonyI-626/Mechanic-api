@@ -1,4 +1,4 @@
-from .schemas import customer_schema, customers_schema
+from .schemas import mechanic_schema, mechanics_schema
 from flask import request, jsonify
 from marshmallow import ValidationError
 from sqlalchemy import select
