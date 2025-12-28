@@ -27,7 +27,7 @@ class ServiceTicket(Base):
     date_created: Mapped[date] = mapped_column(db.Date)
     status: Mapped[str] = mapped_column(db.String(50), nullable = False) 
     
-    mechanic_id: Mapped[int] = mapped_column(ForeignKey('customers.id'))
+    mechanic_id: Mapped[int] = mapped_column(ForeignKey('customers.id'), nullable = False)
     mechanic: Mapped['Mechanic'] = relationship(back_populates='service_tickets')
     
       
