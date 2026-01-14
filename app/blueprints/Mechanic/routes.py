@@ -1,13 +1,15 @@
 from .schemas import mechanic_schema, mechanics_schema
 from flask import request, jsonify
 from marshmallow import ValidationError
-from sqlalchemy import select
-from app.models import Mechanic, db
+from sqlalchemy import select, func
+from app.models import Mechanic, db, ServiceTicket
 from . import mechanics_bp
+from app.extensions import limiter, cache
 
 
 
 @mechanics_bp.route("/", methods=['POST'])
+@limiter.limit('3 per hour')
 def create_mechanic():
     try:
         mechanic_data = mechanic_schema.load(request.json)
@@ -19,10 +21,13 @@ def create_mechanic():
     new_mechanic = Mechanic(**mechanic_data)
     db.session.add(new_mechanic)
     db.session.commit()
-    return mechanic_schema.jsonify(new_mechanic)
+    return mechanic_schema.jsonify(new_mechanic), 201
+
+
 
 
 @mechanics_bp.route("/", methods = ['GET'])
+@cache.cached(timeout=60)
 def get_mechanics():
     query = select(Mechanic)
     mechanics = db.session.execute(query).scalars().all()
@@ -68,3 +73,10 @@ def delete_mechanic(mechanic_id):
     db.session.delete(mechanic)
     db.session.commit()
     return jsonify({'message' : f'Mechanic id: {mechanic_id}, successfully deleted.'}), 200
+
+
+@mechanics_bp.route('/most-active', methods=['GET'])
+def most_active_mechanics():
+    results = (db.session.query(Mechanic).outerjoin(Mechanic.tickets).group_by(Mechanic.id).order_by(func.count(ServiceTicket.id).desc()).all())
+    
+    return mechanics_schema.jsonify(results), 200

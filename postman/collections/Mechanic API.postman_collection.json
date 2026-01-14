@@ -1,0 +1,289 @@
+{
+  "info": {
+    "_postman_id": "217b2ee0-6962-4ace-86c9-9e2218920aca",
+    "name": "Mechanic API",
+    "description": "> This collection features end-to-end tests that ensure the Intergalactic Bank API components function in an expected sequence. Check out the [Functional testing collection](https://www.postman.com/templates/f26ad070-d626-4d75-b151-7cbf1a48ed11/Functional-testing) and [Integration testing collection](https://www.postman.com/templates/6f788c17-067a-4074-a528-d07df1df9529/Integration-testing-%23example) for other test cases for this API. \n  \n\n## **🪐 Get started**\n\nThe fictional Intergalactic Bank Services team is responsible for testing the end-to-end workflows in this collection. You can use this collection to validate specific workflows for your team or figure out ways to increase your test coverage and make your applications more resilient.\n\nTo test the Intergalactic Bank API, you can:\n\n1. **Review tests and scripts:** Check out the [tests](https://learning.postman.com/docs/writing-scripts/test-scripts/) in the Scripts tab of a collection, folder, or request. You’ll also find additional steps in the Pre-request Script, such as for passing data between requests or building up POST request payloads.\n    \n2. **Run tests:** To run the collection, select Run collection from the collection menu. If you are interested in testing one of the use cases, select Run folder from the use case folder menu. Keep in mind that many of these tests contain logic that passes information between requests, and they are meant to be run in order from top to bottom. If you send the requests manually or out of order, your results may vary.\n    \n3. **Review test results:** Many of the test cases contain error messages to help debug service errors. If you’re using this collection as a pre-merge check, ensure that all tests are passing before submitting (and no, deleting the failing test cases isn’t an option 😉).\n    \n\nCheck out the additional sections below or select View complete documentation. For context-sensitive help with a folder or request, look for the documentation icon.\n\n## 🧑‍💻How your team can use this collection\n\n- **Add a mock server to speed up development:** Adding functionality to this service? Since this collection has example responses, you can add a mock server that will return the expected results. Start writing tests against the mock, and once your additions are live, you can swap out the URLs and have a live test suite.\n    \n- **Integrate tests with your CI/CD pipeline:** This comprehensive test suite is a great addition to your existing CI/CD pipeline. Generate the Postman CLI command from the Collection Runner and add this step to your existing checks each time you make a commit affecting this service.\n    \n- **Add a monitor:** If your team is contributing to or relying on this service, it’s a good idea to keep tabs on the status. Adding a monitor to this collection can give you confidence that the service is up and running and alert you to any breaking changes that may have occurred.\n    \n\n## 🔍 What we’re testing\n\n- A very common workflow is the transfer of funds between accounts. We have two scenarios: one which creates all resources and successfully transfers funds, and one which tries the transfer with insufficient funds.\n    \n- During these workflows, we are testing for data correctness, data types, and that data is successfully passed through the system during creation and retrieval.\n    \n\n## 🔒A note on authorization\n\nThis API uses an API key-based authorization. In this collection, we set the authorization at the collection level and generate a new API Key for each test run.\n\n## 👀 View and share run results\n\nInterested in seeing previous run results? We’re happy to share, and have a few ways for you to stay in the loop:\n\n- **Runs tab:** View past collection runs in the `Runs` tab of this collection. Here, you can see the results of past runs, including who ran them and whether it was via the Collection Runner or the CLI. You can also share individual run reports from this page.\n    \n- **Monitors:** If you have a monitor set up for this collection, you can see historical run information when you select the Monitors tab in the left sidebar. You can also have the results sent to Slack or other services when you set up a corresponding integration.\n    \n\n### 🤝Increase test coverage\n\nThe Intergalactic Bank Services team wants your team to have everything they need to successfully test our services with their applications. Is your team utilizing this API in a use case not represented here? Reach out to us on our internal Slack by tagging `@bank-services`. Or add an [inline comment](https://learning.postman.com/docs/collaborating-in-postman/working-with-your-team/discussing-your-work/) to this collection with your test case suggestions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49994014",
+    "_collection_link": "https://tonyirizarry69-884966.postman.co/workspace/2bf5db39-a3f6-4b9e-8d0e-85a6c87e1921/collection/49994014-217b2ee0-6962-4ace-86c9-9e2218920aca?action=share&source=collection_link&creator=49994014"
+  },
+  "item": [
+    {
+      "name": "Mechanics",
+      "item": [
+        {
+          "name": "Delete",
+          "id": "5c5c58db-b60b-4d62-bb3e-5b7ce65af087",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/mechanics/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mechanics",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update 1",
+          "id": "aeece0d4-3a03-4f3e-b62c-1e1e419db17a",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Anthony\",\r\n    \"email\": \"anthony@emaill.com\",\r\n    \"phone\": \"4801234567\",\r\n    \"DOB\": \"1920-01-01\",\r\n    \"password\": \"NotPassword\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/mechanics/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mechanics",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All",
+          "id": "8fcaa357-20fb-42b1-981e-5c6f406685a3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/mechanics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mechanics"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get 1",
+          "id": "1dfae9e4-d793-4d02-aa1a-3ac8c8977d28",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/mechanics/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mechanics",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create",
+          "id": "3f9f8a35-d285-4852-a62b-22690e4fd3e7",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Anthony\",\r\n    \"email\": \"anthony@example.com\",\r\n    \"phone\": \"4801234567\",\r\n    \"DOB\": \"1920-01-01\",\r\n    \"password\": \"Password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/mechanics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mechanics"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "215f550d-73a1-4e63-9d86-70d4b0b00c51"
+    },
+    {
+      "name": "Service Tickets",
+      "item": [
+        {
+          "name": "Remove Mechanic",
+          "id": "18373735-600a-4631-8940-0beb49b92fab",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/service_ticket/120/remove-mechanic/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service_ticket",
+                "120",
+                "remove-mechanic",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Mechanic",
+          "id": "dc0c7ed2-a2eb-491c-aa50-17e8d1fb91b1",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/service_ticket/120/assign-mechanic/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service_ticket",
+                "120",
+                "assign-mechanic",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Tickets",
+          "id": "ae5f1138-cff7-4b41-9696-88bf51b7ddf0",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/service_ticket",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service_ticket"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Service Ticket",
+          "id": "0656dd13-d984-4a47-82da-2348c18a0623",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/service_ticket/120",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service_ticket",
+                "120"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Ticket",
+          "id": "ebf82d0f-61d7-48a4-b07b-18430bd99650",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 120,\r\n    \"description\": \"Oil Change\",\r\n    \"date_created\": \"2025-12-27\",\r\n    \"status\": \"Done.\",\r\n    \"mechanic_id\": 1\r\n    \r\n    \r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/service_ticket",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service_ticket"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "5acd51ff-93a4-4ac5-a19b-424efad31150"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "a5a8aac7-7081-4476-be6d-d20a2ec106d6",
+      "key": "baseUrl",
+      "value": "https://template.postman-echo.com",
+      "type": "string"
+    },
+    {
+      "id": "968ee43b-0ac1-4365-8433-57f730f1a784",
+      "key": "apiKey",
+      "value": "OMpqVWAH.UC80wyXTtPwhDgAUdCTx6"
+    }
+  ]
+}

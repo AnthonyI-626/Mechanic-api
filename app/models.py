@@ -17,6 +17,18 @@ class Mechanic(Base):
     
     service_tickets = relationship('ServiceTicket', back_populates='mechanic')
 
+class Customers(Base):
+    __tablename__ = 'customers'
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(db.String(250), nullable=False)
+    email: Mapped[str] = mapped_column(db.String(255),unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(db.string(255), nullable=False)
+    phone: Mapped[str] = mapped_column(db.String(15), unique=True, nullable=False)
+    
+    ticket_parts = db.Table( 'ticket_parts', db.Column(
+        'ticket_id', db.Integer, db.ForeignKey('service_tickets.id'), primary_key=True),
+        db.Column('inventory_id', db.Integer, db.ForeignKey('inventory.id'), primary_key=True))
     
     
 class ServiceTicket(Base):
@@ -29,7 +41,19 @@ class ServiceTicket(Base):
     
     mechanic_id: Mapped[int] = mapped_column(ForeignKey('customers.id'), nullable = True)
     mechanic: Mapped['Mechanic'] = relationship(back_populates='service_tickets')
+    parts = db.relationship('Inventory', secondary='ticket_parts', back_populates='tickets')
+     
     
-      
+class Inventory(Base):
+    __tablename__ = 'inventory'
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    item_name: Mapped[str] = mapped_column(db.Stirng(250), nullable=False)
+    price: Mapped[float] = mapped_column(db.Float, nullable=False)
+    
+    tickets = db.relationship('ServceTickets', secondary='ticket_parts', back_populates='parts')
+   
+    
+
 
 
