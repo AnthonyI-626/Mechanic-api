@@ -6,7 +6,7 @@ from app.extensions import ma, db, Base
 
 
 class Mechanic(Base):
-    __tablename__ = 'customers'
+    __tablename__ = 'mechanics'
     
     id: Mapped[int] = mapped_column(primary_key = True)
     name: Mapped[str] = mapped_column(db.String(250), nullable = False)
@@ -23,7 +23,7 @@ class Customers(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(db.String(250), nullable=False)
     email: Mapped[str] = mapped_column(db.String(255),unique=True, nullable=False)
-    password: Mapped[str] = mapped_column(db.string(255), nullable=False)
+    password: Mapped[str] = mapped_column(db.String(255), nullable=False)
     phone: Mapped[str] = mapped_column(db.String(15), unique=True, nullable=False)
     
     ticket_parts = db.Table( 'ticket_parts', db.Column(
@@ -39,7 +39,7 @@ class ServiceTicket(Base):
     date_created: Mapped[date] = mapped_column(db.Date)
     status: Mapped[str] = mapped_column(db.String(50), nullable = False) 
     
-    mechanic_id: Mapped[int] = mapped_column(ForeignKey('customers.id'), nullable = True)
+    mechanic_id: Mapped[int] = mapped_column(ForeignKey('mechanics.id'), nullable = True)
     mechanic: Mapped['Mechanic'] = relationship(back_populates='service_tickets')
     parts = db.relationship('Inventory', secondary='ticket_parts', back_populates='tickets')
      
@@ -48,10 +48,10 @@ class Inventory(Base):
     __tablename__ = 'inventory'
     
     id: Mapped[int] = mapped_column(primary_key=True)
-    item_name: Mapped[str] = mapped_column(db.Stirng(250), nullable=False)
+    item_name: Mapped[str] = mapped_column(db.String(250), nullable=False)
     price: Mapped[float] = mapped_column(db.Float, nullable=False)
     
-    tickets = db.relationship('ServceTickets', secondary='ticket_parts', back_populates='parts')
+    tickets = db.relationship('ServiceTickets', secondary='ticket_parts', back_populates='parts')
    
     
 
