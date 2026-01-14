@@ -19,7 +19,7 @@ def create_customer():
     
     return customer_schema.jsonify(new_customer), 201
 
-@customers_bp.route('/login', methos=['POST'])
+@customers_bp.route('/login', methods=['POST'])
 def login_customer():
     try:
         data = login_schema.load(request.json)

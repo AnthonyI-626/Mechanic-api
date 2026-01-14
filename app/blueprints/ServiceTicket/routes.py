@@ -21,7 +21,7 @@ def create_service_ticket():
     db.session.commit()
     return service_ticket_schema.jsonify(new_ticket)
 
-@service_tickets_bp.route('/<int: ticket_id>/edit', methods=['PUT'])
+@service_tickets_bp.route('/<int:ticket_id>/edit', methods=['PUT'])
 def update_service_ticket(ticket_id):
     ticket = db.session.get(ServiceTicket, ticket_id)
     if not ticket:

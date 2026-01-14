@@ -2,11 +2,11 @@ from app.extensions import ma
 from app.models import Customers
 
 
-class CustomerSchema(ma.Schema):
+class CustomerSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Customers
-        load_instance = True
-        fields = ('id', 'name', 'email', 'password', 'phone', 'DOB')
+        load_instance = False
+        include_fk = True
         
 customer_schema = CustomerSchema()
 customers_schema = CustomerSchema(many=True)
