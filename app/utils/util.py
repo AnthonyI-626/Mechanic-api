@@ -21,7 +21,7 @@ def token_required(f):
             if not customer_id:
                 return jsonify({'error' : 'Invalid token!'}), 401
         except Exception:
-            return jsonify({'error' : 'Token is invali or expired!'}), 401
+            return jsonify({'error' : 'Token is invalid or expired!'}), 401
         
         return f(customer_id, *args, **kwargs)
     return wrapper
@@ -30,7 +30,7 @@ def token_required(f):
 
 def encode_token(customer_id): 
     payload = {
-        'exp': datetime.now(timezone.utc) + timedelta(days=0,hours=1),
+        'exp': datetime.now(timezone.utc) + timedelta(hours=1),
         'iat': datetime.now(timezone.utc), 
         'customer_id':  str(customer_id) 
     }

@@ -1,8 +1,8 @@
-from flask_sqlalchemy import SQLAlchemy
+
 from sqlalchemy.orm import  mapped_column, Mapped, relationship
 from sqlalchemy import ForeignKey
 from datetime import date
-from app.extensions import ma, db, Base
+from app.extensions import db, Base
 
 
 class Mechanic(Base):

@@ -6,6 +6,7 @@ from app.models import Customers, db
 from . import customers_bp
 from app.extensions import limiter, cache
 from app.utils.util import encode_token
+from app import current_app
 
 
 @customers_bp.route('/', methods=['POST'])
@@ -35,7 +36,7 @@ def login_customer():
     if not customer or customer.password != password:
         return jsonify({'error' : 'Invalid credentials'}), 401
     
-    token = encode_token(customer.id)
+    token = encode_token(customer.id, current_app.config['SECRET_KEY'])
     
     return jsonify({'token' : token}), 200
 

@@ -101,7 +101,6 @@ id	int	PK
 name	string	required
 email	string	unique
 phone	string	required
-DOB	date	required
 password	string	required
 ServiceTicket
 Field	Type	Notes
