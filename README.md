@@ -123,3 +123,69 @@ GET	/service_tickets/	Get all tickets
 GET	/service_tickets/	Get a ticket by ID
 PUT	/service_tickets//assign-mechanic/	Assign mechanic
 PUT	/service_tickets//remove-mechanic/	Remove mechanic
+
+
+📁 Test Coverage
+The test suite includes:
+
+Customers
+Create customer
+
+Invalid customer creation (negative test)
+
+Customer login
+
+Get all customers
+
+Get single customer
+
+Update customer
+
+Delete customer
+
+Mechanics
+Create mechanic
+
+Invalid mechanic creation
+
+Get all mechanics
+
+Get single mechanic
+
+Update mechanic
+
+Delete mechanic
+
+Most active mechanics
+
+Service Tickets
+Create service ticket
+
+Invalid ticket creation
+
+Get all tickets
+
+Get single ticket
+
+Update ticket fields
+
+Assign mechanic to ticket
+
+Add/remove parts
+
+Get tickets for authenticated customer (/my-tickets)
+
+🧹 Test Environment
+Each test file uses:
+
+setUp() to create a fresh in‑memory test database
+
+tearDown() to drop all tables after each test
+
+SQLAlchemy 2.0 session patterns
+
+Marshmallow validation for negative tests
+
+Token authentication for protected routes
+
+This ensures tests are isolated, repeatable, and safe to run at any time.
