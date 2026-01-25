@@ -28,14 +28,14 @@ def token_required(f):
         
         
 
-def encode_token(customer_id): 
+def encode_token(customer_id, secret_key): 
     payload = {
         'exp': datetime.now(timezone.utc) + timedelta(hours=1),
         'iat': datetime.now(timezone.utc), 
         'customer_id':  str(customer_id) 
     }
 
-    token = jwt.encode(payload, current_app.config['SECRET_KEY'], algorithm='HS256')
+   # token = jwt.encode(payload, current_app.config['SECRET_KEY'], algorithm='HS256')
     
     
-    return token
+    return jwt.encode(payload, secret_key, algorithm='HS256')

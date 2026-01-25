@@ -15,7 +15,7 @@ class Mechanic(Base):
     DOB: Mapped[date] 
     password: Mapped[str] = mapped_column(db.String(250), nullable = False)
     
-    service_tickets = relationship('ServiceTicket', back_populates='mechanic')
+    tickets = relationship('ServiceTicket', back_populates='mechanic')
 
 class Customers(Base):
     __tablename__ = 'customers'
@@ -40,7 +40,7 @@ class ServiceTicket(Base):
     status: Mapped[str] = mapped_column(db.String(50), nullable = False) 
     
     mechanic_id: Mapped[int] = mapped_column(ForeignKey('mechanics.id'), nullable = True)
-    mechanic: Mapped['Mechanic'] = relationship(Mechanic, back_populates='service_tickets')
+    mechanic: Mapped['Mechanic'] = relationship(Mechanic, back_populates='tickets')
     parts = db.relationship('Inventory', secondary='ticket_parts', back_populates='tickets')
      
     

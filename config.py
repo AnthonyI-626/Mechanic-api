@@ -4,13 +4,11 @@ class DevelopmentConfig:
     
     
 class TestingConfig:
-    pass
-
-class ProductionConfig:
-    pass
-
-
-class TestingConfig:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
     DEBUG = True
     CACHE_TYPE = 'SimpleCache'
+    SECRET_KEY = 'test-secret-key'
+    
+
+class ProductionConfig:
+    pass

@@ -14,14 +14,21 @@ def create_mechanic():
     try:
         mechanic_data = mechanic_schema.load(request.json)
     except ValidationError as e:
-        return jsonify({'error': 'Email already associated with account'}), 400
-    query = select(Mechanic).where(Mechanic.email == mechanic_data['email'])
-    
-    
+        return jsonify({"error": e.messages}), 400
+
+    existing = db.session.execute(
+        select(Mechanic).where(Mechanic.email == mechanic_data["email"])
+    ).scalar_one_or_none()
+
+    if existing:
+        return jsonify({"error": "Email already associated with an account"}), 400
+
     new_mechanic = Mechanic(**mechanic_data)
     db.session.add(new_mechanic)
     db.session.commit()
+
     return mechanic_schema.jsonify(new_mechanic), 201
+
 
 
 
@@ -32,7 +39,7 @@ def get_mechanics():
     query = select(Mechanic)
     mechanics = db.session.execute(query).scalars().all()
     
-    return mechanics_schema.jsonify(mechanics)
+    return mechanics_schema.jsonify(mechanics), 200
 
 
 @mechanics_bp.route('/<int:mechanic_id>', methods = ['GET'])
@@ -52,7 +59,7 @@ def update_mechanic(mechanic_id):
         return jsonify({'error': 'Mechanic not found'}), 404
     
     try:
-        mechanic_data = mechanic_schema.load(request.json)
+        mechanic_data = mechanic_schema.load(request.json, partial=True)
     except ValidationError as e:
         return jsonify(e.messages), 400
     

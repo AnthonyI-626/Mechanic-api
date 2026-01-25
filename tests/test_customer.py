@@ -1,6 +1,5 @@
 from app import create_app
 from app.models import db, Customers
-from datetime import datetime
 from app.utils.util import encode_token
 import unittest
 
@@ -8,26 +7,36 @@ class TestCustomer(unittest.TestCase):
 
     def setUp(self):
         self.app = create_app('TestingConfig')
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        self.client = self.app.test_client()
+
+        db.drop_all()
+        db.create_all()
+
         self.customer = Customers(
             name="test_user",
             email="test@email.com",
-            phone="1234567890",
+            phone="1234567899",
             password='test'
         )
-        with self.app.app_context():
-            db.drop_all()
-            db.create_all()
-            db.session.add(self.customer)
-            db.session.commit()
-            self.token = encode_token(1, self.app.config["SECRET_KEY"])
-            
-        self.client = self.app.test_client()
+        db.session.add(self.customer)
+        db.session.commit()
+
+        self.token = encode_token(self.customer.id, self.app.config["SECRET_KEY"])
+
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+        self.app_context.pop()
+
         
     def test_create_customer(self):
         customers_payload = {
             "name": "John Doe",
             "email": "jd@email.com",
-            "phone": "1234567890",
+            "phone": "1234566666",
             "password": "123"
         }
 
@@ -44,7 +53,7 @@ class TestCustomer(unittest.TestCase):
 
         response = self.client.post('/customers/', json=customer_payload)
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json['email'], ['Missing data for required field.'])
+        self.assertEqual(response.json['error']['email'], ['Missing data for required field.'])
         
     def test_login_customer(self):
         credentials = {
@@ -67,7 +76,7 @@ class TestCustomer(unittest.TestCase):
 
         headers = {'Authorization': "Bearer " + self.test_login_customer()}
 
-        response = self.client.put('/customers/', json=update_payload, headers=headers)
+        response = self.client.put(f'/customers/{self.customer.id}', json=update_payload, headers=headers)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['name'], 'Peter')
         self.assertEqual(response.json['email'], 'test@email.com')

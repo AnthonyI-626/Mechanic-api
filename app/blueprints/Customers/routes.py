@@ -6,39 +6,51 @@ from app.models import Customers, db
 from . import customers_bp
 from app.extensions import limiter, cache
 from app.utils.util import encode_token
-from app import current_app
+from flask import current_app
 
 
 @customers_bp.route('/', methods=['POST'])
 @limiter.limit('5 per hour')
 def create_customer():
-    data = customer_schema.load(request.json)
-    
+    try:
+        data = customer_schema.load(request.json)
+    except ValidationError as e:
+        return jsonify({"error": e.messages}), 400
+
     new_customer = Customers(**data)
     db.session.add(new_customer)
     db.session.commit()
-    
+
     return customer_schema.jsonify(new_customer), 201
+
 
 @customers_bp.route('/login', methods=['POST'])
 def login_customer():
     try:
         data = login_schema.load(request.json)
     except ValidationError as e:
-        return jsonify({e.messages}), 400
+        return jsonify({"error": e.messages}), 400
+
     email = data.get('email')
     password = data.get('password')
-    
+
     customer = db.session.execute(
         select(Customers).where(Customers.email == email)
     ).scalar_one_or_none()
-    
+
     if not customer or customer.password != password:
-        return jsonify({'error' : 'Invalid credentials'}), 401
-    
+        return jsonify({
+            "status": "fail",
+            "message": "Invalid credentials"
+        }), 401
+
     token = encode_token(customer.id, current_app.config['SECRET_KEY'])
-    
-    return jsonify({'token' : token}), 200
+
+    return jsonify({
+        "status": "success",
+        "token": token
+    }), 200
+
 
 
 @customers_bp.route('/', methods=['GET'])
@@ -78,7 +90,7 @@ def update_customer(customer_id):
     db.session.commit()
     return customer_schema.jsonify(customer), 200
 
-@customers_bp.route('/int:customer_id>', methods=['DELETE'])
+@customers_bp.route('/<int:customer_id>', methods=['DELETE'])
 @limiter.limit('2 per hour')
 def delete_customer(customer_id):
     customer = db.session.get(Customers, customer_id)
