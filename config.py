@@ -1,3 +1,9 @@
+import os
+
+class ProductionConfig:
+    SQLALCHEMY_DATABASE_URI = os.get.env('SQLALCHEMY_DATABASE_URI')
+    CACHE_TYPE = "SimpleCache"
+
 class DevelopmentConfig:
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:J101310112408e!@localhost/mechanic_api'
     DEBUG = True
@@ -10,5 +16,4 @@ class TestingConfig:
     SECRET_KEY = 'test-secret-key'
     
 
-class ProductionConfig:
-    pass
+

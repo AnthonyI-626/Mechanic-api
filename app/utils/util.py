@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, timezone
 from functools import wraps
 from jose import jwt, JWTError
 from flask import request, jsonify, current_app
+import os
 
 
 def token_required(f):
