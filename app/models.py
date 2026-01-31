@@ -25,7 +25,7 @@ class Customers(Base):
     email: Mapped[str] = mapped_column(db.String(255),unique=True, nullable=False)
     password: Mapped[str] = mapped_column(db.String(255), nullable=False)
     phone: Mapped[str] = mapped_column(db.String(15), unique=True, nullable=False)
-    DOB: Mapped[str] = mapped_column(db.String(20), nullable=False)
+    DOB: Mapped[str] = mapped_column(db.String(20), nullable=True)
 
     
 ticket_parts = db.Table( 'ticket_parts', db.Column(
@@ -50,8 +50,10 @@ class Inventory(Base):
     __tablename__ = 'inventory'
     
     id: Mapped[int] = mapped_column(primary_key=True)
-    item_name: Mapped[str] = mapped_column(db.String(250), nullable=False)
+    name: Mapped[str] = mapped_column(db.String(250), nullable=False)
     price: Mapped[float] = mapped_column(db.Float, nullable=False)
+    quantity: Mapped[int] = mapped_column(db.Integer, nullable=False)
+
     
     tickets = db.relationship('ServiceTicket', secondary='ticket_parts', back_populates='parts')
    
