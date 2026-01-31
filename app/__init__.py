@@ -8,8 +8,8 @@ from .blueprints.Inventory import inventory_bp
 from flask_swagger_ui import get_swaggerui_blueprint
 
 
-SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
-API_URL = '/static/swagger.yaml'  # Our API URL (can of course be a local resource)
+SWAGGER_URL = '/api/docs' 
+API_URL = '/static/swagger.yaml'  
 
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
@@ -38,4 +38,6 @@ def create_app(config_name=None):
     app.register_blueprint(customers_bp, url_prefix='/customers')
     app.register_blueprint(inventory_bp, url_prefix='/inventory')
     
+    from .models import Customers, Mechanic, ServiceTicket, Inventory
+
     return app

@@ -39,11 +39,8 @@ class ServiceTicket(Base):
     __tablename__ = 'service_tickets'
     
     id: Mapped[int] = mapped_column(primary_key=True)
-
-    customer_id: Mapped[int] = mapped_column(
-        db.Integer, db.ForeignKey('customers.id'), nullable=False)
-    mechanic_id: Mapped[int] = mapped_column(
-        db.Integer, db.ForeignKey('mechanics.id'), nullable=False)
+    customer_id: Mapped[int] = mapped_column(db.Integer, db.ForeignKey('customers.id'), nullable=False)
+    mechanic_id: Mapped[int] = mapped_column( db.Integer, db.ForeignKey('mechanics.id'), nullable=False)
 
     description: Mapped[str] = mapped_column(db.String(500), nullable=False)
     status: Mapped[str] = mapped_column(db.String(50), nullable=False)
