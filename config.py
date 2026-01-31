@@ -1,7 +1,7 @@
 import os
 
 class ProductionConfig:
-    SQLALCHEMY_DATABASE_URI = os.get.env('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     CACHE_TYPE = "SimpleCache"
 
 class DevelopmentConfig:
