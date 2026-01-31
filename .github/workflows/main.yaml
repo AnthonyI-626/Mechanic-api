@@ -59,3 +59,18 @@ jobs:
 
       - name: Run tests
         run: python -m unittest discover -s tests -p 'test_*.py'
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render Deployment
+        run: |
+          curl -X POST \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -d '' \
+            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+
+
