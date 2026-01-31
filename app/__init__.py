@@ -22,8 +22,8 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 def create_app(config_name=None):
     app = Flask(__name__)
     
-    if config_name is None:
-        config_name = 'DevelopmentConfig'
+    if config_name is None: 
+      config_name = 'TestingConfig'
         
     app.config.from_object(f'config.{config_name}')
     
