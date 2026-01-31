@@ -15,7 +15,7 @@ def create_service_ticket():
     except ValidationError as e:
         return jsonify({"error": e.messages}), 400
 
-    new_ticket = ServiceTicket(**ticket_data)
+    new_ticket = ticket_data  
     db.session.add(new_ticket)
     db.session.commit()
 
