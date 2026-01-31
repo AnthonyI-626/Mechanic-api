@@ -10,10 +10,10 @@ class DevelopmentConfig:
     
     
 class TestingConfig:
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     DEBUG = True
     CACHE_TYPE = 'SimpleCache'
     SECRET_KEY = 'test-secret-key'
-    
+
 
 
