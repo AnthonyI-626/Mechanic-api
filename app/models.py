@@ -25,6 +25,8 @@ class Customers(Base):
     email: Mapped[str] = mapped_column(db.String(255),unique=True, nullable=False)
     password: Mapped[str] = mapped_column(db.String(255), nullable=False)
     phone: Mapped[str] = mapped_column(db.String(15), unique=True, nullable=False)
+    DOB: Mapped[str] = mapped_column(db.String(20), nullable=False)
+
     
 ticket_parts = db.Table( 'ticket_parts', db.Column(
     'ticket_id', db.Integer, db.ForeignKey('service_tickets.id'), primary_key=True),
